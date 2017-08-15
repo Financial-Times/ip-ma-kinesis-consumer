@@ -4,6 +4,7 @@
   "description": "Consume kinesis streams for MA tool",
   "main": "index.js",
   "scripts": {
+    "start": "./node_modules/aws-kcl/bin/kcl-bootstrap --java /usr/bin/java -e -p ./app/consumer.properties",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,7 +18,8 @@
   },
   "homepage": "https://github.com/Financial-Times/ip-ma-kinesis-consumer#readme",
   "dependencies": {
-    "aws-kcl": "^0.6.0"
+    "aws-kcl": "^0.6.0",
+    "log4js": "^2.3.3"
   },
   "devDependencies": {
     "eslint": "^3.0.1",

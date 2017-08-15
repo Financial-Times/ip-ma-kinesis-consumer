@@ -1,6 +1,6 @@
+const kcl = require('aws-kcl');
 const util = require('util');
-const kcl = require('../../..');
-const logger = require('../../util/logger');
+const logger = require('../logger');
 
 /**
  * Be careful not to use the 'stderr'/'stdout'/'console' as log destination since it is used to
