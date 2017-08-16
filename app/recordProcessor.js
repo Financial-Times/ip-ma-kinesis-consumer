@@ -77,4 +77,8 @@ function recordProcessor() {
   };
 }
 
-kcl(recordProcessor()).run();
+module.exports = {
+  run() {
+    kcl(recordProcessor()).run();
+  }
+};
