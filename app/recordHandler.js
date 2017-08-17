@@ -1,13 +1,11 @@
-const recordFilter = require('./recordFilter');
+const config = require('../config');
 
-module.exports = (queue) => {
-  return (record) => {
+module.exports = (queue, recordFilter) => {
+  return async function (record) {
     if (!recordFilter(record)) {
-      return Promise.resolve();
+      return null;
     }
 
-    return new Promise((resolve) => {
-      setTimeout(() => resolve('done'), 1000);
-    });
+    return queue.publish(config.jobQueue, record);
   };
 };

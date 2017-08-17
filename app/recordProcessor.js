@@ -2,6 +2,7 @@ const kcl = require('aws-kcl');
 const util = require('util');
 const logger = require('../logger');
 const recordHandler = require('./recordHandler');
+const recordFilter = require('./recordFilter');
 
 /**
  * Be careful not to use the 'stderr'/'stdout'/'console' as log destination since it is used to
@@ -11,14 +12,19 @@ const recordHandler = require('./recordHandler');
 
 function recordProcessor(queue) {
   // Pass queue to handler
-  const handler = recordHandler(queue);
+  const handler = recordHandler(queue, recordFilter);
   const log = logger().getLogger('recordProcessor');
   let shardId;
 
-  function handleRecord(data, partitionKey) {
-    handler(data).then((result) => {
-      log.info(`Partition Key=${partitionKey}, result=${result}`);
-    });
+  async function handleRecord(data, partitionKey) {
+    try {
+      const result = await handler(data);
+      if (result) {
+        log.info(`Partition Key=${partitionKey}, result=${result}`);
+      }
+    } catch (err) {
+      log.error(`Error with Partition Key=${partitionKey}: ${err}`);
+    }
   }
 
   return {
@@ -41,7 +47,7 @@ function recordProcessor(queue) {
         const data = Buffer.from(record.data, 'base64').toString();
         const partitionKey = record.partitionKey;
         sequenceNumber = record.sequenceNumber;
-        //handleRecord(data, partitionKey);
+        handleRecord(data, partitionKey);
       }
 
       if (!sequenceNumber) {
