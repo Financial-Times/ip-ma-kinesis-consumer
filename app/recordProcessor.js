@@ -1,7 +1,7 @@
 const kcl = require('aws-kcl');
 const util = require('util');
 const logger = require('../logger');
-const handler = require('./handler');
+const recordHandler = require('./recordHandler');
 
 /**
  * Be careful not to use the 'stderr'/'stdout'/'console' as log destination since it is used to
@@ -9,7 +9,9 @@ const handler = require('./handler');
  * {https://github.com/awslabs/amazon-kinesis-client/blob/master/src/main/java/com/amazonaws/services/kinesis/multilang/package-info.java MultiLangDaemon}.
  */
 
-function recordProcessor() {
+function recordProcessor(queue) {
+  // Pass queue to handler
+  const handler = recordHandler(queue);
   const log = logger().getLogger('recordProcessor');
   let shardId;
 
@@ -39,7 +41,7 @@ function recordProcessor() {
         const data = Buffer.from(record.data, 'base64').toString();
         const partitionKey = record.partitionKey;
         sequenceNumber = record.sequenceNumber;
-        handleRecord(data, partitionKey);
+        //handleRecord(data, partitionKey);
       }
 
       if (!sequenceNumber) {
@@ -77,8 +79,10 @@ function recordProcessor() {
   };
 }
 
-module.exports = {
-  run() {
-    kcl(recordProcessor()).run();
-  }
+module.exports = (queue) => {
+  return {
+    run() {
+      kcl(recordProcessor(queue)).run();
+    }
+  };
 };
