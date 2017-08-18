@@ -6,7 +6,7 @@
   "scripts": {
     "start": "./node_modules/aws-kcl/bin/kcl-bootstrap -e -p ./app/app.properties",
     "start-dev": "./node_modules/aws-kcl/bin/kcl-bootstrap --java /usr/bin/java -e -p ./app/consumer.properties",
-    "test": "./node_modules/.bin/jest ./**/*.test.js"
+    "test": "./node_modules/.bin/jest ./app"
   },
   "repository": {
     "type": "git",

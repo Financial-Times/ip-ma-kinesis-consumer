@@ -1,6 +1,6 @@
 const EventEmitter = require('events');
 const Connector = require('./_connector');
-const log = require('../logger')().getLogger('recordProcessor');
+const log = require('../../logger')().getLogger('recordProcessor');
 
 class QueueApp extends EventEmitter {
   constructor(config) {

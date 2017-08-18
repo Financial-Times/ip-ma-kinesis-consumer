@@ -1,6 +1,6 @@
 const amqplib = require('amqplib');
 const EventEmitter = require('events');
-const log = require('../logger')().getLogger('recordProcessor');
+const log = require('../../logger')().getLogger('recordProcessor');
 
 class Connector extends EventEmitter {
   constructor(queueURL) {
@@ -9,7 +9,7 @@ class Connector extends EventEmitter {
   }
 
   connect(queueURL) {
-    return amqplib.connect(queueURL).then(conn => {
+    return amqplib.connect(queueURL).then((conn) => {
       conn.on('error', (err) => {
         log.error(err);
       });
@@ -24,7 +24,7 @@ class Connector extends EventEmitter {
       log.info('connected to queue');
       this.conn = conn;
       this.emit('ready');
-    }).catch(err => {
+    }).catch((err) => {
       this.emit('lost');
       log.error(err);
       return setTimeout(() => {
@@ -36,7 +36,7 @@ class Connector extends EventEmitter {
   defaultChannel() {
     return new Promise((resolve, reject) => {
       this.conn.createConfirmChannel()
-        .then(channel => {
+        .then((channel) => {
           this.channel = channel;
           resolve();
         })
@@ -88,7 +88,7 @@ class Connector extends EventEmitter {
   countMessages(queueName) {
     return new Promise((resolve, reject) => {
       this.channel.checkQueue(queueName)
-        .then(details => {
+        .then((details) => {
           resolve(details.messageCount);
         })
         .catch(reject);

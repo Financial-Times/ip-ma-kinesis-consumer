@@ -1,8 +1,9 @@
 const kcl = require('aws-kcl');
 const util = require('util');
-const logger = require('../logger');
+const logger = require('../../logger');
 const recordHandler = require('./recordHandler');
 const recordFilter = require('./recordFilter');
+const filterList = require('./filterList');
 
 /**
  * Be careful not to use the 'stderr'/'stdout'/'console' as log destination since it is used to
@@ -12,7 +13,8 @@ const recordFilter = require('./recordFilter');
 
 function recordProcessor(queue) {
   // Pass queue to handler
-  const handler = recordHandler(queue, recordFilter);
+  const filter = recordFilter(filterList);
+  const handler = recordHandler(queue, filter);
   const log = logger().getLogger('recordProcessor');
   let shardId;
 
