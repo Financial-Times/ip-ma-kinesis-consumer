@@ -5,7 +5,6 @@ module.exports = (queue, recordFilter) => {
     if (!recordFilter(record)) {
       return null;
     }
-
     return queue.publish(config.jobQueue, record);
   };
 };
