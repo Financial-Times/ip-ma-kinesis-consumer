@@ -1,10 +1,10 @@
 require('dotenv').config({ silent: true });
 
 const config = require('../config');
-const queue = require('./queue/queue');
+const Queue = require('./queue/queue');
 const recordProcessor = require('./records/recordProcessor');
 
-const queueInstance = new queue(config);
+const queueInstance = new Queue(config);
 const processorInstance = recordProcessor(queueInstance);
 
 queueInstance
