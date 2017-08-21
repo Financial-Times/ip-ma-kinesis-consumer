@@ -11,3 +11,7 @@ function int(str) {
 config.rabbitUrl = process.env.CLOUDAMQP_URL || 'amqp://localhost';
 config.queuePrefetch = int(process.env.QUEUE_PREFETCH) || 1;
 config.jobQueue = process.env.JOB_QUEUE || 'ma.job.dev';
+
+// KCL & Kinesis
+config.streamName = process.env.STREAM_NAME || 'ip-kclnodejssample';
+config.applicationName = process.env.APPLICATION_NAME || 'ft-email-platform-kclnodejssample';

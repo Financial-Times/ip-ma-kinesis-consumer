@@ -4,8 +4,9 @@
   "description": "Consume kinesis streams for MA tool",
   "main": "index.js",
   "scripts": {
+    "postinstall": "./bin/setup-properties.sh",
     "start": "./node_modules/aws-kcl/bin/kcl-bootstrap -e -p ./app/app.properties",
-    "start-dev": "./node_modules/aws-kcl/bin/kcl-bootstrap --java /usr/bin/java -e -p ./app/consumer.properties",
+    "start-dev": "./node_modules/aws-kcl/bin/kcl-bootstrap --java /usr/bin/java -e -p ./app/app.properties",
     "test": "./node_modules/.bin/jest ./app"
   },
   "repository": {
@@ -22,6 +23,7 @@
     "amqplib": "^0.5.1",
     "aws-kcl": "^0.6.0",
     "dotenv": "^4.0.0",
+    "handlebars": "^4.0.10",
     "lodash": "^4.17.4",
     "log4js": "^2.3.3"
   },
