@@ -1,8 +1,8 @@
-const logger = require('../logger');
+const log = require('../logger')().getLogger('recordProcessor');
 
 /* istanbul ignore next */
 module.exports = (queue) => {
-  logger.info('shutting down');
+  log.info('shutting down');
   const ok = Promise.resolve();
   if (queue) {
     ok.then(() => queue.closeChannel());
