@@ -1,7 +1,9 @@
 const kcl = require('aws-kcl');
 const util = require('util');
-const logger = require('../logger');
-const handler = require('./handler');
+const logger = require('../../logger');
+const recordHandler = require('./recordHandler');
+const recordFilter = require('./recordFilter');
+const filterList = require('./filterList');
 
 /**
  * Be careful not to use the 'stderr'/'stdout'/'console' as log destination since it is used to
@@ -9,14 +11,22 @@ const handler = require('./handler');
  * {https://github.com/awslabs/amazon-kinesis-client/blob/master/src/main/java/com/amazonaws/services/kinesis/multilang/package-info.java MultiLangDaemon}.
  */
 
-function recordProcessor() {
+function recordProcessor(queue) {
+  // Pass queue to handler
+  const filter = recordFilter(filterList);
+  const handler = recordHandler(queue, filter);
   const log = logger().getLogger('recordProcessor');
   let shardId;
 
-  function handleRecord(data, partitionKey) {
-    handler(data).then((result) => {
-      log.info(`Partition Key=${partitionKey}, result=${result}`);
-    });
+  async function handleRecord(data, partitionKey) {
+    try {
+      const result = await handler(data);
+      if (result) {
+        log.info(`Partition Key=${partitionKey}, result=${result}`);
+      }
+    } catch (err) {
+      log.error(`Error with Partition Key=${partitionKey}: ${err}`);
+    }
   }
 
   return {
@@ -77,8 +87,10 @@ function recordProcessor() {
   };
 }
 
-module.exports = {
-  run() {
-    kcl(recordProcessor()).run();
-  }
+module.exports = (queue) => {
+  return {
+    run() {
+      kcl(recordProcessor(queue)).run();
+    }
+  };
 };
