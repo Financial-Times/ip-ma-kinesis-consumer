@@ -3,7 +3,7 @@ require('dotenv').config({ silent: true });
 const config = require('../config');
 const Queue = require('./queue/queue');
 const recordProcessor = require('./records/recordProcessor');
-const logger = require('../logger');
+const log = require('../logger')().getLogger('recordProcessor');
 const shutdown = require('./shutdown');
 
 const queueInstance = new Queue(config);
@@ -18,7 +18,7 @@ function onUncaughtException(error) {
   const message = 'Uncaught exception: process will exit';
   // In case log is not writeable, etc
   console.error(message, error);
-  logger.error(error, message);
+  log.error(error, message);
   shutdown(queueInstance);
 }
 
