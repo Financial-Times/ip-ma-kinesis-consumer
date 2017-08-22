@@ -59,7 +59,7 @@ function recordProcessor(queue) {
 
       // If checkpointing, completeCallback should only be called once checkpoint is complete.
       processRecordsInput.checkpointer.checkpoint(sequenceNumber, (err, newSequenceNumber) => {
-        log.info(util.format('Checkpoint successful. ShardID: %s, SeqenceNumber: %s',
+        log.debug(util.format('Checkpoint successful. ShardID: %s, SeqenceNumber: %s',
           shardId, newSequenceNumber));
         completeCallback();
       });

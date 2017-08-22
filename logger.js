@@ -1,9 +1,10 @@
 const log4js = require('log4js');
+const config = require('./config');
 
 function logger() {
   const logDir = process.env.NODE_LOG_DIR !== undefined ? process.env.NODE_LOG_DIR : '.';
 
-  const config = {
+  const conf = {
     appenders: {
       recordOut: {
         type: 'file',
@@ -19,12 +20,12 @@ function logger() {
       }
     },
     categories: {
-      default: { appenders: ['recordOut'], level: 'info' },
-      recordProcessor: { appenders: ['recordOut'], level: 'info' }
+      default: { appenders: ['recordOut'], level: config.logLevel },
+      recordProcessor: { appenders: ['recordOut'], level: config.logLevel }
     }
   };
 
-  log4js.configure(config, {});
+  log4js.configure(conf, {});
 
   return {
     getLogger: (category) => log4js.getLogger(category)

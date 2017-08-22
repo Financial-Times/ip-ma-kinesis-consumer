@@ -17,3 +17,6 @@ config.jobExchange = process.env.JOB_EXCHANGE || 'ma.jobs.exchange.dev';
 config.streamName = process.env.STREAM_NAME || 'ip-kclnodejssample';
 config.initialStreamPosition = process.env.INITIAL_STREAM_POSITION || 'TRIM_HORIZON';
 config.applicationName = process.env.APPLICATION_NAME || 'ft-email_platform_kclnodejssample';
+
+// App
+config.logLevel = process.env.LOG_LEVEL || 'info';
