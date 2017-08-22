@@ -60,15 +60,8 @@ class Connector extends EventEmitter {
     return this.channel.prefetch(amount);
   }
 
-  sendToQueue(queueName, task) {
-    return new Promise((resolve, reject) => {
-      this.channel.sendToQueue(queueName, new Buffer(task), {}, (err) => {
-        if (err) {
-          return reject(err);
-        }
-        return resolve();
-      });
-    });
+  publish(exchange, routingKey, task) {
+    return this.channel.publish(exchange, routingKey, new Buffer(task), { persistent: true });
   }
 
   cancel(consumerTag) {
