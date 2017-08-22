@@ -17,8 +17,13 @@ class QueueApp extends EventEmitter {
 
   onConnected() {
     const options = { durable: true, autoDelete: false };
+    // Set DL queue for retry
+
     const ok = this.connection.defaultChannel();
+    ok.then(() => this.connection.assertExchange(this.config.jobExchange, 'direct', options));
     ok.then(() => this.connection.assertQueue(this.config.jobQueue, options));
+    ok.then(() => this.connection.bindQueue(this.config.jobQueue, this.config.jobExchange,
+      this.config.jobQueue));
     ok.then(() => this.connection.setPrefetch(this.config.queuePrefetch));
     ok.then(() => this.connection.recover());
     ok.then(() => this.emit('ready'));
@@ -36,7 +41,7 @@ class QueueApp extends EventEmitter {
   }
 
   publish(queueName, task) {
-    return this.connection.sendToQueue(queueName, task);
+    return this.connection.publish(this.config.jobExchange, queueName, JSON.stringify(task));
   }
 
   closeChannel() {
