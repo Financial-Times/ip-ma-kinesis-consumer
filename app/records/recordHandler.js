@@ -13,6 +13,6 @@ module.exports = (queue, recordFilter) => {
     if (!recordFilter(context)) {
       return null;
     }
-    return queue.publish(config.jobQueue, record);
+    return queue.publish(config.jobQueue, context);
   };
 };
