@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "./bin/setup-properties.sh",
-    "startVoltConsumer": "FILTER_LIST=voltFilterList ./bin/start.sh $VOLT_STREAM_NAME",
-    "startSpoorConsumer": "FILTER_LIST=spoorFilterList ./bin/start.sh $SPOOR_STREAM_NAME",
-    "startDev": "FILTER_LIST=filterList ./node_modules/aws-kcl/bin/kcl-bootstrap --java /usr/bin/java -e -p ./app/ip-kclsample.properties",
+    "startVoltConsumer": "./bin/start.sh ${NPM_PACKAGE_VOLT_STREAM_NAME}",
+    "startSpoorConsumer": "./bin/start.sh ${NPM_PACKAGE_SPOOR_STREAM_NAME}",
+    "startDev": "./node_modules/aws-kcl/bin/kcl-bootstrap --java /usr/bin/java -e -p ./app/ip-kclsample.properties",
     "test": "./node_modules/.bin/jest ./app"
   },
   "repository": {
