@@ -1,9 +1,11 @@
 const kcl = require('aws-kcl');
+const config = require('../../config');
 const util = require('util');
 const logger = require('../../logger');
 const recordHandler = require('./recordHandler');
 const recordFilter = require('./recordFilter');
-const filterList = require('./filterList');
+// eslint-disable-next-line
+const filterList = require(`./${config.filterList}`);
 
 /**
  * Be careful not to use the 'stderr'/'stdout'/'console' as log destination since it is used to
