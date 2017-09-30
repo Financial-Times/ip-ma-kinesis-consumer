@@ -25,13 +25,13 @@ if (config.production) {
   config.streams = {
     // Outbound volt stream
     volt: {
-      streamName: process.env.VOLT_STREAM_NAME,
+      streamName: 'ip_volt_kinesis_consumer',
       initialStreamPosition: process.env.VOLT_INITIAL_STREAM_POSITION,
       applicationName: process.env.VOLT_APPLICATION_NAME
     },
     // Spoor Inbound Volt Stream
     spoor: {
-      streamName: process.env.SPOOR_STREAM_NAME,
+      streamName: 'ip_spoor_kinesis_consumer',
       initialStreamPosition: process.env.SPOOR_INITIAL_STREAM_POSITION,
       applicationName: process.env.SPOOR_APPLICATION_NAME
     }
