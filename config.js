@@ -19,6 +19,8 @@ config.jobQueue = process.env.JOB_QUEUE || 'ma.jobs.dev';
 config.jobExchange = process.env.JOB_EXCHANGE || 'ma.jobs.exchange.dev';
 
 // KCL & Kinesis
+config.filterList = process.env.FILTER_LIST;
+
 if (config.production) {
   config.streams = {
     // Outbound volt stream
@@ -47,3 +49,4 @@ if (config.production) {
 
 // App
 config.logLevel = process.env.LOG_LEVEL || 'info';
+config.nodeLogDir = process.env.NODE_LOG_DIR || '.';

@@ -2,7 +2,7 @@ const log4js = require('log4js');
 const config = require('./config');
 
 function logger() {
-  const logDir = process.env.NODE_LOG_DIR !== undefined ? process.env.NODE_LOG_DIR : '.';
+  const logDir = config.nodeLogDir;
 
   const conf = {
     appenders: {
