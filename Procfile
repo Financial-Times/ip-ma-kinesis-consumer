@@ -1,2 +1,2 @@
-voltConsumer: npm startVoltConsumer
-spoorConsumer: npm startSpoorConsumer
+voltConsumer: npm run startVoltConsumer
+spoorConsumer: npm run startSpoorConsumer
