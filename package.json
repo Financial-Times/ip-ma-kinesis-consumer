@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "./bin/setup-properties.sh",
-    "startVoltConsumer": "FILTER_LIST=voltFilterList ./bin/start.sh ${VOLT_STREAM_NAME}",
-    "startSpoorConsumer": "FILTER_LIST=spoorFilterList ./bin/start.sh ${SPOOR_STREAM_NAME}",
+    "startVoltConsumer": "FILTER_LIST=voltFilterList ./bin/start.sh $VOLT_STREAM_NAME",
+    "startSpoorConsumer": "FILTER_LIST=spoorFilterList ./bin/start.sh $SPOOR_STREAM_NAME",
     "startDev": "FILTER_LIST=filterList ./node_modules/aws-kcl/bin/kcl-bootstrap --java /usr/bin/java -e -p ./app/ip-kclsample.properties",
     "test": "./node_modules/.bin/jest ./app"
   },
