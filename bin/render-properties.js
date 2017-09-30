@@ -7,6 +7,7 @@ const handlebars = require('handlebars');
 const config = require('../config');
 
 let templ;
+console.log(config.nodeEnv);
 for (const stream of Object.keys(config.streams)) {
   try {
     templ = fs.readFileSync(process.argv[2], 'utf8');
