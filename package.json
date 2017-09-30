@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "./bin/setup-properties.sh",
-    "startVoltConsumer": "./bin/start.sh ${NPM_PACKAGE_VOLT_APPLICATION_NAME}",
-    "startSpoorConsumer": "./bin/start.sh ${NPM_PACKAGE_SPOOR_APPLICATIN_NAME}",
+    "startVoltConsumer": "./bin/start.sh ip_volt_kinesis_consumer",
+    "startSpoorConsumer": "./bin/start.sh "ip_spoor_kinesis_consumer,
     "startDev": "./node_modules/aws-kcl/bin/kcl-bootstrap --java /usr/bin/java -e -p ./app/ip-kclsample.properties",
     "test": "./node_modules/.bin/jest ./app"
   },
