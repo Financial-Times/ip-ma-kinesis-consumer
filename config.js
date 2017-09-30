@@ -25,15 +25,15 @@ if (config.production) {
   config.streams = {
     // Outbound volt stream
     volt: {
-      streamName: 'ip_volt_kinesis_consumer',
+      applicationName: 'ip_volt_kinesis_consumer',
       initialStreamPosition: process.env.VOLT_INITIAL_STREAM_POSITION,
-      applicationName: process.env.VOLT_APPLICATION_NAME
+      streamName: process.env.VOLT_STREAM_NAME
     },
     // Spoor Inbound Volt Stream
     spoor: {
-      streamName: 'ip_spoor_kinesis_consumer',
+      applicationName: 'ip_spoor_kinesis_consumer',
       initialStreamPosition: process.env.SPOOR_INITIAL_STREAM_POSITION,
-      applicationName: process.env.SPOOR_APPLICATION_NAME
+      streamName: process.env.SPOOR_STREAM_NAME
     }
   };
 } else if (config.development) {

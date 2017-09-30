@@ -11,7 +11,7 @@ for (const stream of Object.keys(config.streams)) {
   try {
     templ = fs.readFileSync(process.argv[2], 'utf8');
     const output = handlebars.compile(templ)(config.streams[stream]);
-    fs.writeFileSync(`./app/${config.streams[stream].streamName}.properties`, output, 'utf-8');
+    fs.writeFileSync(`./app/${config.streams[stream].applicationName}.properties`, output, 'utf-8');
   } catch (err) {
     console.error(err);
     process.exit(10);
