@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "./bin/setup-properties.sh",
-    "start": "./node_modules/aws-kcl/bin/kcl-bootstrap -e -p ./app/app.properties",
-    "start-dev": "./node_modules/aws-kcl/bin/kcl-bootstrap --java /usr/bin/java -e -p ./app/app.properties",
+    "startVoltConsumer": "./bin/start.sh ${VOLT_STREAM_NAME}",
+    "startSpoorConsumer": "./bin/start.sh ${SPOOR_STREAM_NAME}",
+    "startDev": "./node_modules/aws-kcl/bin/kcl-bootstrap --java /usr/bin/java -e -p ./app/ip-kclsample.properties",
     "test": "./node_modules/.bin/jest ./app"
   },
   "repository": {

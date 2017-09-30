@@ -31,8 +31,8 @@ describe('Record Handler', () => {
   });
 
   it('Passes the context of the record to the filter', () => {
-    const context = { hello: 'world' };
-    const record = JSON.stringify({ context });
+    const context = { context: { hello: 'world' } };
+    const record = JSON.stringify(context);
     const mockFilter = jest.fn(() => true);
     const handler = recordHandler(mockQueue, mockFilter);
     handler(record);
