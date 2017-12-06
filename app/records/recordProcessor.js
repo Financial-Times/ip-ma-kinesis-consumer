@@ -34,12 +34,12 @@ function recordProcessor(queue) {
 
   async function handleRecords(records, callback) {
     let sequenceNumber;
-    for (const record of records) {
+    await Promise.all(records.map((record) => {
       const data = Buffer.from(record.data, 'base64').toString();
       const partitionKey = record.partitionKey;
       sequenceNumber = record.sequenceNumber;
-      await handleRecord(data, partitionKey);
-    }
+      return handleRecord(data, partitionKey);
+    }));
 
     callback(sequenceNumber);
   }
