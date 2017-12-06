@@ -5,13 +5,14 @@ module.exports = (queue, recordFilter) => {
     const recordObj = JSON.parse(record);
     let context = {};
 
-    if (recordObj.annotations) {
-      context = recordObj.annotations.ingest;
+    if (recordObj.egest && recordObj.egest.annotations) {
+      context = recordObj.egest.annotations;
     }
 
     if (!recordFilter(context)) {
       return null;
     }
-    return queue.publish(config.jobQueue, recordObj.annotations);
+
+    return queue.publish(config.jobQueue, recordObj.egest.annotations);
   };
 };
