@@ -25,4 +25,3 @@ function onUncaughtException(error) {
 process.on('uncaughtException', onUncaughtException);
 process.on('SIGTERM', () => shutdown(queueInstance));
 process.on('SIGINT', () => shutdown(queueInstance));
-

@@ -2,6 +2,7 @@ const kcl = require('aws-kcl');
 const config = require('../../config');
 const util = require('util');
 const logger = require('../../logger');
+const shutdown = require('../shutdown');
 const recordHandler = require('./recordHandler');
 const recordFilter = require('./recordFilter');
 // eslint-disable-next-line
@@ -31,6 +32,18 @@ function recordProcessor(queue) {
     }
   }
 
+  async function handleRecords(records, callback) {
+    let sequenceNumber;
+    for (const record of records) {
+      const data = Buffer.from(record.data, 'base64').toString();
+      const partitionKey = record.partitionKey;
+      sequenceNumber = record.sequenceNumber;
+      await handleRecord(data, partitionKey);
+    }
+
+    callback(sequenceNumber);
+  }
+
   return {
 
     initialize: (initializeInput, completeCallback) => {
@@ -45,25 +58,14 @@ function recordProcessor(queue) {
         return;
       }
       const records = processRecordsInput.records;
-      let sequenceNumber;
 
-      for (const record of records) {
-        const data = Buffer.from(record.data, 'base64').toString();
-        const partitionKey = record.partitionKey;
-        sequenceNumber = record.sequenceNumber;
-        handleRecord(data, partitionKey);
-      }
-
-      if (!sequenceNumber) {
-        completeCallback();
-        return;
-      }
-
-      // If checkpointing, completeCallback should only be called once checkpoint is complete.
-      processRecordsInput.checkpointer.checkpoint(sequenceNumber, (err, newSequenceNumber) => {
-        log.debug(util.format('Checkpoint successful. ShardID: %s, SeqenceNumber: %s',
-          shardId, newSequenceNumber));
-        completeCallback();
+      handleRecords(records, (sequenceNumber) => {
+        // If checkpointing, completeCallback should only be called once checkpoint is complete.
+        processRecordsInput.checkpointer.checkpoint(sequenceNumber, (err, newSequenceNumber) => {
+          log.debug(util.format('Checkpoint successful. ShardID: %s, SeqenceNumber: %s',
+            shardId, newSequenceNumber));
+          completeCallback();
+        });
       });
     },
 
@@ -75,6 +77,7 @@ function recordProcessor(queue) {
     },
 
     shutdown: (shutdownInput, completeCallback) => {
+      shutdown(queue);
       // Checkpoint should only be performed when shutdown reason is TERMINATE.
       if (shutdownInput.reason !== 'TERMINATE') {
         completeCallback();

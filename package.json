@@ -22,7 +22,7 @@
   "homepage": "https://github.com/Financial-Times/ip-ma-kinesis-consumer#readme",
   "dependencies": {
     "amqplib": "^0.5.1",
-    "aws-kcl": "^0.6.0",
+    "aws-kcl": "^0.7.0",
     "dotenv": "^4.0.0",
     "handlebars": "^4.0.10",
     "lodash": "^4.17.4",
