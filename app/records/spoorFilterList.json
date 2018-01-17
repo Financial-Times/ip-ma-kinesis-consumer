@@ -1,3 +1,5 @@
 [
-  { "ingest": { "context": {"messageType": "UserProductsChanged" } } }
+  { "ingest": { "context": {"messageType": "UserProductsChanged" } } },
+  { "user": { "uuid": "a73e0b60-e669-40b3-ba5e-0c8621cadac1" } },
+  { "ingest": { "user": { "uuid": "a73e0b60-e669-40b3-ba5e-0c8621cadac1" } } }
 ]
