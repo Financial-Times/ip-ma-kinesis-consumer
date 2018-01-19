@@ -7,8 +7,8 @@ const isStaff = selectn('user.subscriptions.staff');
 module.exports = () => {
   return (record = {}) => {
     if (messageType(record) === 'UserProductsChanged'
-      || (messageType(record) === 'EmailEvent' && action(record) === 'click')
-      || isStaff(record)) {
+      || messageType(record) === 'SubscriptionPurchased'
+      || (messageType(record) === 'EmailEvent' && action(record) === 'click')) {
       return true;
     }
     return false;
