@@ -9,6 +9,8 @@ module.exports = () => {
   return (record = {}) => {
     if (messageType(record) === 'UserProductsChanged'
       || messageType(record) === 'SubscriptionPurchased'
+      || messageType(record) === 'SubscriptionPaymentFailure'
+      || messageType(record) === 'SubscriptionPaymentSuccess'
       || (messageType(record) === 'EmailEvent' && action(record) === 'click')
       || (messageType(record) === 'EmailEvent' && user(record) === 'a73e0b60-e669-40b3-ba5e-0c8621cadac1')) {
       return true;
