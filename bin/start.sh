@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 cd "$(dirname "$0")/.." || exit 10
 PATH=$(npm bin):$PATH
 

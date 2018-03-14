@@ -7,7 +7,7 @@
     "postinstall": "./bin/setup-properties.sh",
     "startVoltConsumer": "./bin/start.sh ip_volt_kinesis_consumer",
     "startSpoorConsumer": "./bin/start.sh ip_spoor_kinesis_consumer",
-    "startDev": "./node_modules/aws-kcl/bin/kcl-bootstrap --java /usr/bin/java -e -p ./app/ip-kclsample.properties",
+    "startDev": "./node_modules/aws-kcl/bin/kcl-bootstrap --java /usr/bin/java -e -p ./app/ip_spoor_kinesis_consumer_dev.properties",
     "test": "./node_modules/.bin/jest ./app"
   },
   "repository": {
