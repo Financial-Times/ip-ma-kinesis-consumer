@@ -3,8 +3,6 @@ const selectn = require('selectn');
 const messageType = selectn('ingest.context.messageType');
 const action = selectn('ingest.action');
 const emailId = selectn('ingest.context.parentEmailId');
-const isStaff = selectn('user.subscriptions.staff');
-const user = selectn('user.uuid');
 
 module.exports = () => {
   return (record = {}) => {

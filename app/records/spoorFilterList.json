@@ -1,4 +1,0 @@
-[
-  { "ingest": { "context": {"messageType": "UserProductsChanged" } } },
-  { "ingest": { "action": "click" } }
-]

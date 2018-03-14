@@ -6,7 +6,6 @@ const shutdown = require('../shutdown');
 const recordHandler = require('./recordHandler');
 const recordFilter = require('./recordFilter');
 // eslint-disable-next-line
-const filterList = require(`./${config.filterList}`);
 
 /**
  * Be careful not to use the 'stderr'/'stdout'/'console' as log destination since it is used to
@@ -16,7 +15,7 @@ const filterList = require(`./${config.filterList}`);
 
 function recordProcessor(queue) {
   // Pass queue to handler
-  const filter = recordFilter(filterList);
+  const filter = recordFilter();
   const handler = recordHandler(queue, filter);
   const log = logger().getLogger('recordProcessor');
   let shardId;

@@ -1,5 +1,0 @@
-[
-  { "user": { "ft_guid": "a73e0b60-e669-40b3-ba5e-0c8621cadac1" } },
-  { "context": {"userUuid": "a73e0b60-e669-40b3-ba5e-0c8621cadac1" } },
-  { "action": "open", "parentEmailId": "123456" }
-]
