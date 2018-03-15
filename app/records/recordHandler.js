@@ -13,6 +13,6 @@ module.exports = (queue, recordFilter) => {
       return null;
     }
 
-    return queue.publish(config.jobQueue, recordObj.egest.annotations);
+    return queue.publish(config.jobQueue, context);
   };
 };

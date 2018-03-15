@@ -31,11 +31,11 @@ describe('Record Handler', () => {
   });
 
   it('Passes the context of the record to the filter', () => {
-    const context = { context: { hello: 'world' } };
+    const context = { egest: { annotations: { hello: 'world' } } };
     const record = JSON.stringify(context);
     const mockFilter = jest.fn(() => true);
     const handler = recordHandler(mockQueue, mockFilter);
     handler(record);
-    expect(mockFilter).toBeCalledWith(context);
+    expect(mockFilter).toBeCalledWith(context.egest.annotations);
   });
 });

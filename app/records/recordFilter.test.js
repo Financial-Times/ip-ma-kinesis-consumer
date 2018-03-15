@@ -1,26 +1,31 @@
 const recordFilter = require('./recordFilter');
 
-const filterList = [
-  { action: 'click' },
-  { action: 'open', parentEmailId: '123456' },
-  { messageType: 'UserPreferenceCreated' }
+const filter = recordFilter();
+
+const passingTestEvents = [
+  { ingest: { context: { messageType: 'UserProductsChanged' } } },
+  { ingest: { context: { messageType: 'SubscriptionPurchased' } } },
+  { ingest: { context: { messageType: 'SubscriptionPaymentFailure' } } },
+  { ingest: { context: { messageType: 'SubscriptionPaymentSuccess' } } },
+  { ingest: { context: { messageType: 'SubscriptionCancelRequestProcessed' } } },
+  { ingest: { context: { messageType: 'EmailEvent' }, action: 'click' } },
+  { ingest: { context: { messageType: 'EmailEvent', parentEmailId: '584010ed69bff20400ec3dd6' }, action: 'injection' } }
 ];
 
-const filter = recordFilter(filterList);
+const failingTestEvents = [
+  { ingest: { context: { messageType: 'BlahBlah' } } }
+];
 
 describe('Record Filter', () => {
-  it('Matches record in the filter list', () => {
-    const record = { action: 'click' };
-    expect(filter(record)).toBeTruthy();
+  passingTestEvents.map((event) => {
+    it('Returns true if the filters pass', () => {
+      expect(filter(event)).toBeTruthy();
+    });
   });
 
-  it('Matches multiple property filter items', () => {
-    const record = { action: 'open', parentEmailId: '123456' };
-    expect(filter(record)).toBeTruthy();
-  });
-
-  it('Does not match a record in the filter list', () => {
-    const record = { action: 'open' };
-    expect(filter(record)).toBeFalsy();
+  failingTestEvents.map((event) => {
+    it('Returns false for failing filters', () => {
+      expect(filter(event)).toBeFalsy();
+    });
   });
 });
