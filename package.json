@@ -4,6 +4,8 @@
   "description": "Consume kinesis streams for MA tool",
   "main": "index.js",
   "scripts": {
+    "precommit": "secret-squirrel",
+    "commitmsg": "secret-squirrel-commitmsg",
     "postinstall": "./bin/setup-properties.sh",
     "startVoltConsumer": "./bin/start.sh ip_volt_kinesis_consumer",
     "startSpoorConsumer": "./bin/start.sh ip_spoor_kinesis_consumer",
@@ -30,9 +32,11 @@
     "selectn": "^1.1.2"
   },
   "devDependencies": {
+    "@financial-times/secret-squirrel": "^2.8.0",
     "eslint": "^4.4.1",
     "eslint-config-airbnb-base": "^11.3.1",
     "eslint-plugin-import": "^2.7.0",
+    "husky": "^0.14.3",
     "jest": "^20.0.4"
   },
   "engines": {
