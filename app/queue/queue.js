@@ -1,6 +1,7 @@
 const EventEmitter = require('events');
 const Connector = require('./_connector');
 const log = require('../../logger')().getLogger('recordProcessor');
+const metrics = require('next-metrics');
 
 class QueueApp extends EventEmitter {
   constructor(config) {
@@ -27,20 +28,24 @@ class QueueApp extends EventEmitter {
     ok.then(() => this.connection.setPrefetch(this.config.queuePrefetch));
     ok.then(() => this.connection.recover());
     ok.then(() => this.emit('ready'));
+    metrics.count('queue.ready');
     ok.catch(this.onError);
   }
 
   onLost() {
     log.info('connection to queue lost');
+    metrics.count('queue.lost');
     this.emit('lost');
   }
 
   onError() {
     log.error('error with queue connection');
+    metrics.count('queue.error');
     this.emit('lost');
   }
 
   publish(queueName, task) {
+    metrics.count('queue.publish');
     return this.connection.publish(this.config.jobExchange, queueName, JSON.stringify(task));
   }
 

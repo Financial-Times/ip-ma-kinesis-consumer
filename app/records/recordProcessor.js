@@ -5,6 +5,7 @@ const logger = require('../../logger');
 const shutdown = require('../shutdown');
 const recordHandler = require('./recordHandler');
 const recordFilter = require('./recordFilter');
+
 // eslint-disable-next-line
 
 /**
