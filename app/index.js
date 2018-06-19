@@ -10,8 +10,7 @@ const metrics = require('next-metrics');
 metrics.init({
 	app: 'ip-ma-kinesis-consumer',
 	useDefaultAggregators: false,
-	flushEvery: 40000,
-	forceGraphiteLogging: true
+	flushEvery: 40000
 });
 
 const queueInstance = new Queue(config);
