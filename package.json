@@ -27,6 +27,7 @@
     "handlebars": "^4.0.10",
     "lodash": "^4.17.4",
     "log4js": "^2.3.3",
+    "next-metrics": "^1.49.6",
     "selectn": "^1.1.2"
   },
   "devDependencies": {

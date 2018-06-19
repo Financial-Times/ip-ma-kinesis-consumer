@@ -5,6 +5,13 @@ const Queue = require('./queue/queue');
 const recordProcessor = require('./records/recordProcessor');
 const log = require('../logger')().getLogger('recordProcessor');
 const shutdown = require('./shutdown');
+const metrics = require('next-metrics');
+
+metrics.init({
+	app: 'ip-ma-kinesis-consumer',
+	useDefaultAggregators: false,
+	flushEvery: 40000
+});
 
 const queueInstance = new Queue(config);
 const processorInstance = recordProcessor(queueInstance);
