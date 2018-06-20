@@ -9,6 +9,10 @@ module.exports = (queue, recordFilter) => {
 
     if (recordObj.egest && recordObj.egest.annotations) {
       context = recordObj.egest.annotations;
+      
+      if (recordObj.egest.annotations.time) {
+        metrics.histogram('recordHandler.age', new Date() - new Date(recordObj.egest.annotations.time.now));
+      }
     }
 
     if (!recordFilter(context)) {
