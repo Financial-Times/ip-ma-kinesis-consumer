@@ -1,18 +1,27 @@
 const config = require('../../config');
+const metrics = require('next-metrics');
 
 module.exports = (queue, recordFilter) => {
   return async function (record) {
+    metrics.count('recordHandler.count');
     const recordObj = JSON.parse(record);
     let context = {};
 
     if (recordObj.egest && recordObj.egest.annotations) {
       context = recordObj.egest.annotations;
+      
+      if (recordObj.egest.annotations.time) {
+				const product = recordObj.egest.annotations.ingest.context.product || 'no-product';
+        metrics.histogram(`recordHandler.age.${product}`, new Date() - new Date(recordObj.egest.annotations.time.now));
+      }
     }
 
     if (!recordFilter(context)) {
+      metrics.count('recordHandler.fail');
       return null;
     }
 
+    metrics.count('recordHandler.pass');
     return queue.publish(config.jobQueue, context);
   };
 };
