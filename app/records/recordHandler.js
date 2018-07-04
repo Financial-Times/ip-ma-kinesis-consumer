@@ -11,7 +11,7 @@ module.exports = (queue, recordFilter) => {
       context = recordObj.egest.annotations;
       
       if (recordObj.egest.annotations.time) {
-				const product = recordObj.egest.annotations.ingest.context.product || 'no-product';
+				const product = recordObj.egest.annotations.ingest.context.product.replace(/\s+/g, '') || 'no-product';
         metrics.histogram(`recordHandler.age.${product}`, new Date() - new Date(recordObj.egest.annotations.time.now));
       }
     }
