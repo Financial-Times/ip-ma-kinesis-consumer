@@ -14,7 +14,7 @@ module.exports = () => {
       || messageType(record) === 'SubscriptionCancelRequestProcessed'
       || (messageType(record) === 'EmailEvent' && action(record) === 'click')
       || (messageType(record) === 'EmailEvent' && action(record) === 'injection' && emailId(record) === '584010ed69bff20400ec3dd6')) {
-        metrics.count(`recordFilter.messageType.${messageType}`)
+        metrics.count(`recordFilter.messageType.${messageType(record)}`)
       return true;
     }
     return false;
