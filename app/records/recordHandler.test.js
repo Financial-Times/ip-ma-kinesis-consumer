@@ -38,4 +38,24 @@ describe('Record Handler', () => {
     handler(record);
     expect(mockFilter).toBeCalledWith(context.egest.annotations);
   });
+
+  it('Shouldn\'t blow up when the event body is missing fields', () => {
+    const context = {
+      egest: { 
+        annotations: { 
+          hello: 'world',
+          ingest: {
+          },
+          time: { 
+            now: 123 
+          } 
+        } 
+      } 
+    };
+    const record = JSON.stringify(context);
+    const mockFilter = jest.fn(() => true);
+    const handler = recordHandler(mockQueue, mockFilter);
+    handler(record);
+    expect(mockFilter).toBeCalledWith(context.egest.annotations);
+  });
 });
