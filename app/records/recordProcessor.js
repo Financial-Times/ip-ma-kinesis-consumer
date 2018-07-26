@@ -5,6 +5,7 @@ const logger = require('../../logger');
 const shutdown = require('../shutdown');
 const recordHandler = require('./recordHandler');
 const recordFilter = require('./recordFilter');
+const metrics = require('next-metrics');
 
 // eslint-disable-next-line
 
@@ -48,7 +49,7 @@ function recordProcessor(queue) {
 
     initialize: (initializeInput, completeCallback) => {
       shardId = initializeInput.shardId;
-
+      metrics.count(`recordProcessor.init.${shardId}`, 1);
       completeCallback();
     },
 

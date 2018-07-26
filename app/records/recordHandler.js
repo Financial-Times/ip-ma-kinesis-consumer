@@ -17,11 +17,11 @@ module.exports = (queue, recordFilter) => {
     }
 
     if (!recordFilter(context)) {
-      metrics.count('recordHandler.fail');
+      metrics.count('recordHandler.fail', 1);
       return null;
     }
 
-    metrics.count('recordHandler.pass');
+    metrics.count('recordHandler.pass', 1);
     return queue.publish(config.jobQueue, context);
   };
 };
