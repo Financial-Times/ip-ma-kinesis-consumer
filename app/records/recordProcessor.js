@@ -23,9 +23,11 @@ function recordProcessor(queue) {
   let shardId;
 
   async function handleRecord(data, partitionKey) {
+    metrics.count(`recordProcessor.handleRecord.count`, 1);
     try {
       const result = await handler(data);
       if (result) {
+        metrics.count(`recordProcessor.handleRecord.result`, 1);
         log.info(`Partition Key=${partitionKey}, result=${result}`);
       }
     } catch (err) {
