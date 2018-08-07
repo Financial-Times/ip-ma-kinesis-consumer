@@ -9,11 +9,13 @@ const passingTestEvents = [
   { ingest: { context: { messageType: 'SubscriptionPaymentSuccess' } } },
   { ingest: { context: { messageType: 'SubscriptionCancelRequestProcessed' } } },
   { ingest: { context: { messageType: 'EmailEvent' }, action: 'click' } },
-  { ingest: { context: { messageType: 'EmailEvent', parentEmailId: '584010ed69bff20400ec3dd6' }, action: 'injection' } }
+  { ingest: { context: { messageType: 'EmailEvent', parentEmailId: '584010ed69bff20400ec3dd6' }, action: 'injection' } },
+  { ingest: { action: 'view', category: 'page' }, url: { pathname: '/myft/following/' } }
 ];
 
 const failingTestEvents = [
-  { ingest: { context: { messageType: 'BlahBlah' } } }
+  { ingest: { context: { messageType: 'BlahBlah' } } },
+  { ingest: { action: 'view', category: 'page' }, url: { pathname: '/wrong/path/' } }
 ];
 
 describe('Record Filter', () => {
