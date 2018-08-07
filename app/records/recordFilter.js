@@ -1,5 +1,4 @@
 const selectn = require('selectn');
-<<<<<<< HEAD
 const metrics = require('next-metrics');
 
 // Selection criteria
