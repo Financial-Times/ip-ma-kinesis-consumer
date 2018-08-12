@@ -8,6 +8,7 @@ const emailId = selectn('ingest.context.parentEmailId');
 module.exports = () => {
   return (record = {}) => {
     if (messageType(record) === 'UserProductsChanged'
+      || messageType(record) === 'LicenceSeatAllocated'
       || messageType(record) === 'SubscriptionPurchased'
       || messageType(record) === 'SubscriptionPaymentFailure'
       || messageType(record) === 'SubscriptionPaymentSuccess'
