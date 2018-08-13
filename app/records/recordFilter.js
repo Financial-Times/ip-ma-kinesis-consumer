@@ -15,6 +15,7 @@ module.exports = () => {
   return (record = {}) => {
     if (messageType(record) === 'UserProductsChanged'
       || messageType(record) === 'LicenceSeatAllocated'
+      || messageType(record) === 'LicenceSeatDeallocated'
       || messageType(record) === 'SubscriptionPurchased'
       || messageType(record) === 'SubscriptionPaymentFailure'
       || messageType(record) === 'SubscriptionPaymentSuccess'
