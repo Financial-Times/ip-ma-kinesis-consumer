@@ -23,6 +23,7 @@ module.exports = () => {
       || messageType(record) === 'SubscriptionCancelRequestProcessed'
       || (messageType(record) === 'EmailEvent' && action(record) === 'click')
       || (messageType(record) === 'EmailEvent' && action(record) === 'injection' && emailId(record) === '584010ed69bff20400ec3dd6')
+      || (messageType(record) === 'EmailEvent' && action(record) === 'injection' && emailId(record) === '5805fb0bdbdf3f00039c6fe4')
       || (category(record) === 'page' && action(record) === 'view' && path(record) && path(record).indexOf('/myft/following/') === 0)
       || (category(record) === 'n-messaging' && messageId(record) && !(messageId(record) === 'anonSubscribeNow' || messageId(record) === 'cookieConsentC'))
       || category(record) === 'b2b-prospect') {
